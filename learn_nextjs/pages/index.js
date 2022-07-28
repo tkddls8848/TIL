@@ -1,11 +1,9 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-
-export default function Home() {
+function HomePage() {
   return (
-    <div className={styles.container}>
-      <h1>hello nextjs</h1>
+    <div>
+      <h1>This is HomePage</h1>
     </div>
-  )
-}
+  );
+};
+
+export default HomePage;
