@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 
-function idwithclientname() {
+function IdWithClientPage() {
     const router = useRouter();
     console.log(router.query);
     return (
@@ -9,7 +9,7 @@ function idwithclientname() {
             <h2>{router.query.id}</h2>
             <h2>{router.query.clientname}</h2>
         </div>
-    )
+    );
 };
 
-export default idwithclientname;
+export default IdWithClientPage;
