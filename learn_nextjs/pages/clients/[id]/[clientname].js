@@ -8,7 +8,7 @@ function IdWithClientPage() {
             <h1>This is id + clientname</h1>
             <h2>{router.query.id}</h2>
             <h2>{router.query.clientname}</h2>
-
+            <div>{router.query.message}</div>
         </div>
     );
 };

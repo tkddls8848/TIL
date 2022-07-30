@@ -1,13 +1,13 @@
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 
 function ClientPage() {
-    const router = useRouter();
+  const router = useRouter();
 
-    return (
+  return (
       <div>
-        <h1>This is ClientPage</h1>
+        <h1>This is Simple ClientPage</h1>
         <div>
-          Welcome <b>{router.query.id}</b> !
+          your user id is <b>{router.query.id}</b>
         </div>
       </div>
     );
