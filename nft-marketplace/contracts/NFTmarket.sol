@@ -10,7 +10,7 @@ contract NFTMarket is ReentrancyGuard {
     //카운터 객체를 통한 아이템 번호 및 팔린 아이템 수량
     Counters.Counter private _itemIds;
     Counters.Counter private _itemSold;
-
+    //마켓소유자 주소
     address payable owner;
     //등록비
     uint256 listingPrice = 0.025 ether;
@@ -118,5 +118,52 @@ contract NFTMarket is ReentrancyGuard {
             }
         }
         return unSoldList;
-    }    
+    }
+
+    //현재 내가 보유한 NFT가져오기
+    function fetchMyNFTs() public view returns(MarketItem[] memory) {
+        uint myCount = 0;
+        uint totalCount = _itemIds.current();
+        uint index = 0;
+        for (uint i = 0 ; i < totalCount ; i++) {
+            if (idToMarketItem[i + 1].owner == msg.sender) {
+                myCount += 1;
+            }
+        }
+        MarketItem[] memory myNFTList = new MarketItem[](myCount);
+
+        for (uint i = 0 ; i < totalCount ; i++) {
+            if (idToMarketItem[i + 1].owner == msg.sender) {
+                uint currentItemId = idToMarketItem[i + 1].itemId;
+                MarketItem storage currentItem = idToMarketItem[currentItemId];
+                myNFTList[index] = currentItem;
+                index += 1;
+            }
+        }
+        return myNFTList;
+    }
+
+    //내가 만들었던 모든 NFT가져오기
+    function fetchItemCreated() public view returns(MarketItem[] memory) {
+        uint count = 0;
+        uint currentCount = 0;
+        uint totalCount = _itemIds.current();
+        for (uint i = 0 ; i < totalCount ; i++) {
+            if(idToMarketItem[i + 1].seller == msg.sender) {
+                count += 1;                
+            }
+        }
+        MarketItem[] memory createdNFTList = new MarketItem[](count);
+
+        for (uint i = 0 ; i < totalCount ; i++) {
+            if(idToMarketItem[i + 1].seller == msg.sender) {
+                // uint currentCount = idToMarketItem[i + 1].itemId;
+                // MarketItem storage currentItem = idToMarketItem[currentCount];
+                MarketItem storage currentItem = idToMarketItem[i + 1];
+                createdNFTList[currentCount] = currentItem;
+                currentCount += 1;
+            }
+        }
+        return createdNFTList;
+    }
 }
